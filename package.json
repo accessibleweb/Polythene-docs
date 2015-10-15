@@ -1,0 +1,51 @@
+{
+  "name": "polythene-docs",
+  "version": "0.0.1",
+  "description": "Polythene documentation",
+  "license": "MIT",
+  "main": "",
+  "directories": {},
+  "dependencies": {
+    "highlight.js": "^8.8.0",
+    "j2c": "^0.7.3",
+    "lodash": "^3.10.1",
+    "marked": "^0.3.5",
+    "mithril": "^0.2.0",
+    "mithril-infinite": "^0.2.5",
+    "mmsvg": "0.0.4",
+    "polythene": "^0.1.18",
+    "polythene-theme": "^0.1.17",
+    "verge": "^1.9.1"
+  },
+  "devDependencies": {
+    "babel": "^5.8.23",
+    "babelify": "^6.3.0",
+    "browserify": "^11.2.0",
+    "shelljs": "^0.5.3",
+    "transpile-watch": "0.0.2",
+    "uglify-js": "^2.4.24",
+    "uglifyify": "^3.0.1",
+    "watchify": "^3.4.0"
+  },
+  "scripts": {
+    "watch": "node scripts/watch.js",
+    "transpile": "node scripts/watch-es6.js once src/app/ node_modules",
+    "build": "npm run transpile && node scripts/build.js",
+    "copy-docs": "node scripts/copy-docs.js ../../polythene/master/ build/app/docs/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ArthurClemens/Polythene-docs.git"
+  },
+  "author": "Arthur Clemens",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/mit-license.php"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/ArthurClemens/Polythene-docs/issues"
+  },
+  "homepage": "https://github.com/ArthurClemens/Polythene-docs"
+}
