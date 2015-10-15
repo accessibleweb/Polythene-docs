@@ -126,10 +126,10 @@ const styles = [{
             display: 'none'
         },
         ' h2': {
-            'font-size': '28px'
+            'font-size': '26px'
         },
         ' h3': {
-            'font-size': '24px'
+            'font-size': '23px'
         },
         ' h4': {
             'font-size': '20px'
