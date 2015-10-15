@@ -218,12 +218,14 @@ main = function(currentLinkData, content) {
                     });
                     const links = [].slice.call(el.querySelectorAll('a'));
                     links.forEach((ln) => {
-                        ln.onclick = (e) => {
-                            e.preventDefault();
-                            const lnHref = ln.getAttribute('href');
-                            const newRoute = lnHref.replace('#', '');
-                            m.route(newRoute);
-                        };
+                        if (!lnHref.match(/^http/)) {
+                            ln.onclick = (e) => {
+                                e.preventDefault();
+                                const lnHref = ln.getAttribute('href');
+                                const newRoute = lnHref.replace('#', '');
+                                m.route(newRoute);
+                            };
+                        }
                     });
                 }
             }, [
