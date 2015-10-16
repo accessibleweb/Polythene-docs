@@ -76,17 +76,22 @@ const styles = [{
 
         ' a': {
             color: linkColor,
-            'text-decoration': 'underline',
-            'font-weight': 400,
+            'text-decoration': 'none',
+            'font-weight': 700,
 
             '&:hover': {
                 color: linkHoverColor,
             }
         },
 
+        ' a[href*="//"]': {
+            color: '#FF4081'
+        },
+
         ' a.button, a.card': {
             color: mainTextColor,
             'text-decoration': 'none',
+            'font-weight': 400,
             '&:hover': {
                 color: mainTextColor
             }
@@ -105,7 +110,7 @@ const styles = [{
             width: '320px',
 
             '&:hover': {
-                'background-color': '#f7f7f7'
+                'background-color': '#fff'
             },
             ' .button .button-content': {
                 color: linkColor
@@ -178,7 +183,7 @@ const styles = [{
                 'text-align': 'left'
             },
             ' td strong': {
-                color: '#673AB7',
+                color: '#727272',
                 'font-weight': 'normal'
             }
         },
