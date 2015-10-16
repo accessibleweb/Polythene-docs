@@ -2,11 +2,13 @@
 var sh = require('shelljs');
 
 var fileRe = /\.md$/;
-var origin = process.argv[2];
-var dest = process.argv[3];
+var origin = '../../polythene/master/';
+var destinations = ['src/app/docs/', 'build/app/docs/'];
 
-sh.rm('-rf', dest);
-sh.mkdir('-p', dest);
+destinations.forEach(function(dest) {
+    sh.rm('-rf', dest);
+    sh.mkdir('-p', dest);
+});
 
 var allFiles = sh.find(origin);
 
@@ -23,9 +25,11 @@ var files2 = files1.filter(function(file) {
 });
 
 var files3 = files2.filter(function(file) {
-	return file.match(fileRe);
+    return file.match(fileRe);
 });
 
 files3.map(function(file) {
-    sh.cp(file, dest);
+    destinations.forEach(function(dest) {
+        sh.cp(file, dest);
+    });
 });

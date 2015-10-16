@@ -61,7 +61,7 @@ const styles = [{
             color: 'rgba(255,255,255,.45)'
         },
         ' .list-tile .list-tile-title': {
-            'font-size': fontSize,
+            'font-size': fontSize + 'px',
             color: 'rgba(255,255,255,.9)'
         },
         ' .highlight .list-tile-title, .list-tile a[href]:hover .list-tile-title': {
@@ -143,8 +143,10 @@ const styles = [{
         ' pre, blockquote': {
             padding: '16px',
             background: '#fff',
-            'white-space': 'pre-wrap',
             margin: '1em 0'
+        },
+        ' pre': {
+            'white-space': 'pre-wrap'
         },
         ' blockquote': {
             'font-style': 'italic',

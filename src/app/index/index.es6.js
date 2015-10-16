@@ -1,3 +1,10 @@
+if (Window.AMD) {
+    var FastClick = require('fastclick');
+    FastClick.attach(document.body);
+} else {
+    var attachFastClick = require('fastclick');
+    attachFastClick(document.body);
+}
 
 import pluck from 'lodash/collection/pluck';
 import forEach from 'lodash/collection/forEach';
@@ -286,7 +293,7 @@ app.view = function(ctrl) {
     ];
 };
 
-m.route.mode = 'search';
+m.route.mode = 'hash';
 m.route(document.body, baseUrl, {
     ':module': app
 });

@@ -1,25 +1,26 @@
 {
   "name": "polythene-docs",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "Polythene documentation",
   "license": "MIT",
   "main": "",
   "directories": {},
+  "dependencies": {
+    "fastclick": "^1.0.6",
+    "highlight.js": "^8.8.0",
+    "j2c": "^0.7.3",
+    "lodash": "^3.10.1",
+    "marked": "^0.3.5",
+    "mithril": "^0.2.0",
+    "mithril-infinite": "^0.2.5",
+    "mmsvg": "0.0.4",
+    "polythene": "^0.1.18",
+    "polythene-theme": "^0.1.17",
+    "verge": "^1.9.1"
+  },
   "devDependencies": {
     "babel": "^5.8.23",
-    "babelify": "^6.3.0",
-    "browserify": "^11.2.0",
-    "shelljs": "^0.5.3",
-    "transpile-watch": "0.0.2",
-    "uglify-js": "^2.4.24",
-    "uglifyify": "^3.0.1",
-    "watchify": "^3.4.0"
-  },
-  "scripts": {
-    "watch": "node scripts/watch.js watch src/app/ node_modules",
-    "transpile": "node scripts/watch.js once src/app/ node_modules",
-    "build": "npm run transpile && node scripts/build.js",
-    "copy-docs": "node scripts/copy-docs.js"
+    "systemjs": "^0.19.4"
   },
   "repository": {
     "type": "git",
