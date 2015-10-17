@@ -43,11 +43,8 @@ links = [{
         url: 'polythene',
         name: 'Introduction',
         title: defaultTitle,
-        demo: 'http://arthurclemens.github.io/Polythene-examples/index.html'
-    }, {
-        url: 'theme',
-        name: 'Appearance / Theming',
-        demo: null
+        demo: 'http://arthurclemens.github.io/Polythene-examples/index.html',
+        label: 'View examples'
     }]
 }, {
     label: 'Combined components',
@@ -126,6 +123,17 @@ links = [{
         name: 'Roboto Font',
         demo: null
     }]
+}, {
+    label: 'Styling',
+    links: [{
+        url: 'theme',
+        name: 'Theming',
+        demo: null
+    }, {
+        url: 'layout',
+        name: 'Layout',
+        demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/layout'
+    }]
 }];
 
 linkMap = {};
@@ -186,7 +194,7 @@ main = function(currentLinkData, content) {
             href: currentLinkData.demo,
             target: '_blank'
         };
-        demoCardTitle = (id === 'polythene') ? 'All components' : title;
+        demoCardTitle = (id === 'polythene') ? 'Introducing Polythene' : title;
         demoCard = m.component(card, {
             url: url,
             content: [{
@@ -199,7 +207,7 @@ main = function(currentLinkData, content) {
                     content: [
                         m('.flex'),
                         m.component(button, {
-                            label: 'View demo',
+                            label: currentLinkData.label || 'View demo',
                             url: url
                         })
                     ]
