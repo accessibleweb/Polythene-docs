@@ -20,7 +20,7 @@
     "transpile": "node scripts/watch.js once src/app/ node_modules",
     "build": "npm run transpile && node scripts/build.js",
     "copy-docs": "node scripts/copy-docs.js",
-    "github": "npm run build && node scripts/github.js"
+    "github": "npm run copy-docs && npm run build && node scripts/github.js"
   },
   "repository": {
     "type": "git",
