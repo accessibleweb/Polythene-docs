@@ -16,8 +16,8 @@
     "watchify": "^3.4.0"
   },
   "scripts": {
-    "watch": "node scripts/watch.js watch src/app/ node_modules",
-    "transpile": "node scripts/watch.js once src/app/ node_modules",
+    "watch": "node scripts/transpile.js watch src/app/ node_modules",
+    "transpile": "node scripts/transpile.js once src/app/ node_modules",
     "build": "npm run transpile && node scripts/build.js",
     "copy-docs": "node scripts/copy-docs.js",
     "github": "npm run copy-docs && npm run build && node scripts/github.js"

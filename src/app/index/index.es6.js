@@ -64,6 +64,14 @@ links = [{
         url: 'dialog',
         name: 'Dialog',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/dialog'
+    }, {
+        url: 'menu',
+        name: 'Menu',
+        demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/menu'
+    }, {
+        url: 'tabs',
+        name: 'Tabs',
+        demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/tabs'
     }]
 }, {
     label: 'Components',
@@ -71,10 +79,6 @@ links = [{
         url: 'card',
         name: 'Card',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/card'
-    }, {
-        url: 'tabs',
-        name: 'Tabs',
-        demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/tabs'
     }, {
         url: 'button',
         name: 'Button',
