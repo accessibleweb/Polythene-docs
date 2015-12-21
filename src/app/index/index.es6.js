@@ -80,6 +80,10 @@ links = [{
         name: 'Card',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/card'
     }, {
+        url: 'notification',
+        name: 'Notification and Snackbar',
+        demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/notification'
+    }, {
         url: 'button',
         name: 'Button',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/button'
