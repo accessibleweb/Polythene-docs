@@ -96,6 +96,10 @@ links = [{
         name: 'Floating Action Button',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/fab'
     }, {
+        url: 'slider',
+        name: 'Slider',
+        demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/slider'
+    }, {
         url: 'item',
         name: 'Item',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/item'
