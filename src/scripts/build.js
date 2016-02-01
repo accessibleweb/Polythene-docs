@@ -1,20 +1,15 @@
 var fs = require('fs');
 var browserify = require('browserify');
-var aliasify = require('aliasify');
 var babelify = require('babelify');
-
-var aliasifyConfig = {
-    aliases: {}
-};
 
 function bundle(entries, outfile) {
     browserify({
+        debug: true,
         entries: entries,
         extensions: ['.es6.js'],
         paths: ['.', 'node_modules']
     })
-    .transform(babelify)
-    .transform(aliasify, aliasifyConfig)
+    .transform(babelify, {presets: ['es2015']})
     .transform({
         global: true,
         ignore: [
