@@ -192,7 +192,8 @@ navigation.view = () => {
             }),
             m('.footer', m.trust('Polythene by Arthur Clemens 2015. Project page on <a href="https://github.com/ArthurClemens/Polythene">Github</a>.')) // Logo icon design by <a href="https://thenounproject.com/acider/">Miguel C Balandrano</a>
         ],
-        restoreScrollPositionId: 'drawer'
+        restoreScrollPositionId: 'drawer',
+        updateContentOnScroll: false
     }));
 };
 
@@ -225,11 +226,10 @@ main.view = (ctrl, opts) => {
                 }
             },
             mode: 'waterfall',
-            // fixed: true,
             content: m('.doc-content', {
                 config: (el) => {
                     // Syntax coloring
-                    Array.from(document.querySelectorAll('pre code')).forEach((code) => {
+                    Array.from(el.querySelectorAll('pre code')).forEach((code) => {
                         code.innerHTML = h(code.textContent);
                     });
 
@@ -244,8 +244,7 @@ main.view = (ctrl, opts) => {
                         }
                     });
                 }
-            }, mainContent),
-            updateContentOnScroll: false
+            }, mainContent)
         })
     );
 };
@@ -254,13 +253,9 @@ const app = {};
 app.controller = () => {
     const docs = m.request({
         method: 'GET',
-        url: 'app/docs/' + m.route.param('module') + '.md',
+        url: 'app/docs/' + m.route() + '.md',
         background: false,
         deserialize: (value) => {
-            const main = document.querySelector('.pe-header-panel__main-container');
-            if (main) {
-                main.scrollTop = 0;
-            }
             return value;
         }
     });
@@ -281,6 +276,7 @@ app.view = (ctrl) => {
         title: '',
         url: '/'
     };
+    console.log("currentLink", currentLink, "content", content);
     return [
         m('.scaffold.layout.horizontal.reverse', [
             m.component(main, {currentLink, content}),
@@ -291,7 +287,7 @@ app.view = (ctrl) => {
 
 m.route.mode = 'hash';
 m.route(document.body, baseUrl, {
-    '/:module': app
+    '/:any': app
 });
 
 // When going to another page and then hitting the back button
