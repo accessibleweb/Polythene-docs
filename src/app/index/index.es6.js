@@ -20,7 +20,7 @@ const defaultTitle = 'Polythene Documentation';
 const links = [{
     label: null,
     links: [{
-        url: 'polythene',
+        url: '/polythene',
         name: 'Introduction',
         title: defaultTitle,
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html',
@@ -29,113 +29,113 @@ const links = [{
 }, {
     label: 'Components',
     links: [{
-        url: 'checkbox',
+        url: '/checkbox',
         name: 'Checkbox',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/checkbox'
     }, {
-        url: 'radio-button',
+        url: '/radio-button',
         name: 'Radio button',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/radio-button'
     }, {
-        url: 'switch',
+        url: '/switch',
         name: 'Switch',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/switch'
     }, {
-        url: 'spinner',
+        url: '/spinner',
         name: 'Spinner',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/spinner'
     }, {
-        url: 'textfield',
+        url: '/textfield',
         name: 'Textfield',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/textfield'
     }, {
-        url: 'search',
+        url: '/search',
         name: 'Search',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/search'
     }, {
-        url: 'header-panel',
+        url: '/header-panel',
         name: 'Header Panel',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/header-panel'
     }, {
-        url: 'toolbar',
+        url: '/toolbar',
         name: 'Toolbar',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/toolbar'
     }, {
-        url: 'list',
+        url: '/list',
         name: 'List',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/list'
     }, {
-        url: 'dialog',
+        url: '/dialog',
         name: 'Dialog',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/dialog'
     }, {
-        url: 'selection-control',
+        url: '/selection-control',
         name: 'Selection control'
     }, {
-        url: 'menu',
+        url: '/menu',
         name: 'Menu',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/menu'
     }, {
-        url: 'tabs',
+        url: '/tabs',
         name: 'Tabs',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/tabs'
     }, {
-        url: 'card',
+        url: '/card',
         name: 'Card',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/card'
     }, {
-        url: 'notification',
+        url: '/notification',
         name: 'Notification and Snackbar',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/notification'
     }, {
-        url: 'button',
+        url: '/button',
         name: 'Button',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/button'
     }, {
-        url: 'icon-button',
+        url: '/icon-button',
         name: 'Icon Button',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/icon-button'
     }, {
-        url: 'fab',
+        url: '/fab',
         name: 'Floating Action Button',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/fab'
     }, {
-        url: 'slider',
+        url: '/slider',
         name: 'Slider',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/slider'
     }, {
-        url: 'list-tile',
+        url: '/list-tile',
         name: 'List Tile',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/list-tile'
     }, {
-        url: 'svg',
+        url: '/svg',
         name: 'SVG',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/svg'
     }, {
-        url: 'icon',
+        url: '/icon',
         name: 'Icon',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/icon'
     }, {
-        url: 'ripple',
+        url: '/ripple',
         name: 'Ripple',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/ripple'
     }, {
-        url: 'shadow',
+        url: '/shadow',
         name: 'Shadow',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/shadow'
     }, {
-        url: 'font-roboto',
+        url: '/font-roboto',
         name: 'Roboto Font',
         demo: null
     }]
 }, {
     label: 'Styling',
     links: [{
-        url: 'theme',
+        url: '/theme',
         name: 'Theming',
         demo: null
     }, {
-        url: 'layout',
+        url: '/layout',
         name: 'Layout',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/layout'
     }]
@@ -168,9 +168,6 @@ const navItem = (title, url, selected) => {
 };
 
 const navigation = {};
-navigation.controller = () => {
-    // m.redraw.strategy('diff');
-};
 navigation.view = () => {
     let selected;
     return m('.drawer.pe-dark-theme', m.component(headerPanel, {
@@ -242,7 +239,7 @@ main.view = (ctrl, opts) => {
                         if (!lnHref.match(/^http/)) {
                             ln.onclick = (e) => {
                                 e.preventDefault();
-                                m.route(lnHref.replace('#', ''));
+                                m.route(lnHref.replace('#', '/'));
                             };
                         }
                     });
@@ -269,7 +266,7 @@ app.controller = () => {
     });
 
     const currentLink = () => {
-        return linkMap[m.route.param('module')];
+        return linkMap[m.route()];
     };
 
     return {
@@ -282,7 +279,7 @@ app.view = (ctrl) => {
     const content = ctrl.docs();
     const currentLink = ctrl.currentLink() || {
         title: '',
-        url: ''
+        url: '/'
     };
     return [
         m('.scaffold.layout.horizontal.reverse', [
@@ -294,7 +291,7 @@ app.view = (ctrl) => {
 
 m.route.mode = 'hash';
 m.route(document.body, baseUrl, {
-    ':module': app
+    '/:module': app
 });
 
 // When going to another page and then hitting the back button
