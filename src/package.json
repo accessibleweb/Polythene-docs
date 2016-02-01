@@ -6,21 +6,31 @@
   "main": "",
   "directories": {},
   "dependencies": {
+    "h.js": "^1.0.4",
     "fastclick": "^1.0.6",
-    "highlight.js": "^8.8.0",
-    "j2c": "^0.7.3",
-    "lodash": "^3.10.1",
+    "j2c": "^0.11.0",
     "marked": "^0.3.5",
     "mithril": "0.2.0",
-    "mithril-infinite": "^0.2.5",
-    "mmsvg": "0.0.4",
-    "polythene": "^0.1.34",
-    "polythene-theme": "^0.1.26",
-    "verge": "^1.9.1"
+    "mmsvg": "^1.0.0",
+    "polythene": "^0.2.0",
+    "systemjs": "^0.19.17"
   },
   "devDependencies": {
-    "babel": "^5.8.34",
-    "systemjs": "^0.19.9"
+    "aliasify": "^1.9.0",
+    "babelify": "^6.3.0",
+    "browserify": "^11.2.0",
+    "system-text": "^0.1.0",
+    "systemjs": "^0.19.17",
+    "transpile-watch": "0.0.3",
+    "uglify-js": "^2.6.1",
+    "uglifyify": "^3.0.1"
+  },
+  "scripts": {
+    "watch": "node scripts/transpile.js watch app/ node_modules",
+    "transpile": "node scripts/transpile.js once app/ node_modules",
+    "build": "npm run copy-docs && npm run transpile && node scripts/build.js",
+    "copy-docs": "node scripts/copy-docs.js",
+    "dev-build": "npm run copy-docs && node scripts/build-preflight.js && npm install && node scripts/build.js && node scripts/build-postflight.js"
   },
   "repository": {
     "type": "git",

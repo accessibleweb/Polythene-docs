@@ -1,4 +1,6 @@
 node_modules
+tmp
+tmp-npm
 build
 .DS_Store
-tmp
+npm-debug.log

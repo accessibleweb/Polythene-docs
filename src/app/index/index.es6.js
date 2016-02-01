@@ -1,43 +1,23 @@
-if (Window.AMD) {
-    var FastClick = require('fastclick');
-    FastClick.attach(document.body);
-} else {
-    var attachFastClick = require('fastclick');
-    attachFastClick(document.body);
-}
-
-import pluck from 'lodash/collection/pluck';
-import forEach from 'lodash/collection/forEach';
-import array from 'lodash/array';
 import m from 'mithril';
 import marked from 'marked';
 import list from 'polythene/list/list';
 import listTile from 'polythene/list-tile/list-tile';
 import headerPanel from 'polythene/header-panel/header-panel';
-import card from 'polythene/card/card';
 import button from 'polythene/button/button';
-import highlight from 'highlight.js';
+import h from 'h.js';
 
-import webfontLoader from 'polythene-theme/common/webfontLoader';
+import webfontLoader from 'polythene/common/webfontloader';
 webfontLoader.add('google', 'Inconsolata:400,700:latin');
 
-import 'polythene-theme/theme/theme';
-import styler from 'polythene-theme/common/styler';
+import 'polythene/theme/theme';
+import styler from 'polythene/common/styler';
 import appStyle from 'app/app/app-style';
-styler.add('polythene-docs-app', appStyle);
+import syntaxStyle from 'app/app/syntax';
+styler.add('polythene-docs-app', appStyle, syntaxStyle);
 
-let app,
-    navItem,
-    createDrawer,
-    main,
-    links,
-    linkMap,
-    defaultTitle,
-    baseUrl;
+const defaultTitle = 'Polythene Documentation';
 
-defaultTitle = 'Polythene Documentation';
-
-links = [{
+const links = [{
     label: null,
     links: [{
         url: 'polythene',
@@ -47,11 +27,35 @@ links = [{
         label: 'View examples'
     }]
 }, {
-    label: 'Combined components',
+    label: 'Components',
     links: [{
+        url: 'checkbox',
+        name: 'Checkbox',
+        demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/checkbox'
+    }, {
+        url: 'radio-button',
+        name: 'Radio button',
+        demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/radio-button'
+    }, {
+        url: 'switch',
+        name: 'Switch',
+        demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/switch'
+    }, {
+        url: 'spinner',
+        name: 'Spinner',
+        demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/spinner'
+    }, {
+        url: 'textfield',
+        name: 'Textfield',
+        demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/textfield'
+    }, {
+        url: 'search',
+        name: 'Search',
+        demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/search'
+    }, {
         url: 'header-panel',
         name: 'Header Panel',
-        demo: 'http://arthurclemens.github.io/Polythene-examples/header-panel.html'
+        demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/header-panel'
     }, {
         url: 'toolbar',
         name: 'Toolbar',
@@ -65,6 +69,9 @@ links = [{
         name: 'Dialog',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/dialog'
     }, {
+        url: 'selection-control',
+        name: 'Selection control'
+    }, {
         url: 'menu',
         name: 'Menu',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/menu'
@@ -72,10 +79,7 @@ links = [{
         url: 'tabs',
         name: 'Tabs',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/tabs'
-    }]
-}, {
-    label: 'Components',
-    links: [{
+    }, {
         url: 'card',
         name: 'Card',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/card'
@@ -100,17 +104,10 @@ links = [{
         name: 'Slider',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/slider'
     }, {
-        url: 'item',
-        name: 'Item',
-        demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/item'
-    }, {
         url: 'list-tile',
         name: 'List Tile',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/list-tile'
-    }]
-}, {
-    label: 'Elementary components',
-    links: [{
+    }, {
         url: 'svg',
         name: 'SVG',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/svg'
@@ -126,10 +123,6 @@ links = [{
         url: 'shadow',
         name: 'Shadow',
         demo: 'http://arthurclemens.github.io/Polythene-examples/index.html#/shadow'
-    }, {
-        url: 'element',
-        name: 'Element',
-        demo: null
     }, {
         url: 'font-roboto',
         name: 'Roboto Font',
@@ -148,167 +141,153 @@ links = [{
     }]
 }];
 
-linkMap = {};
-forEach(array.flatten(pluck(links, 'links')), function(link) {
-    linkMap[link.url] = link;
+const linkMap = {};
+links.forEach((group) => {
+    group.links.forEach((linkData) => {
+        linkMap[linkData.url] = linkData;
+    });
 });
 
-baseUrl = links[0].links[0].url;
+const sortLinkData = ((a, b) => {
+    const a1 = a.name.toLowerCase();
+    const b1 = b.name.toLowerCase();
+    return (a1 > b1) ? 1 : (a1 < b1 ? -1 : 0);
+});
 
-navItem = function(title, url, highlight) {
+const baseUrl = links[0].links[0].url;
+
+const navItem = (title, url, selected) => {
     return m.component(listTile, {
         title: title,
         url: {
             href: url,
             config: m.route
         },
-        class: highlight ? 'highlight' : ''
+        class: selected ? 'highlight' : ''
     });
 };
 
-createDrawer = function() {
-    var highlight;
-    return m('.drawer.dark-theme',
-        m.component(headerPanel, {
-            header: {
-                toolbar: {
-                    topBar: m('.title', 'Polythene')
-                }
-            },
-            mode: 'waterfall',
-            fixed: true,
-            content: [
-                links.map(function(group) {
-                    return m.component(list, {
-                        header: group.label ? {
-                            title: group.label
-                        } : null,
-                        tiles: group.links.map(function(link) {
-                            highlight = (m.route() === link.url);
-                            return navItem(link.name, link.url, highlight);
-                        })
-                    });
-                }),
-                m('.footer', m.trust('Polythene by Arthur Clemens 2015. Project page on <a href="https://github.com/ArthurClemens/Polythene">Github</a>.')) // Logo icon design by <a href="https://thenounproject.com/acider/">Miguel C Balandrano</a>
-            ]
-        })
-    );
+const navigation = {};
+navigation.controller = () => {
+    // m.redraw.strategy('diff');
+};
+navigation.view = () => {
+    let selected;
+    return m('.drawer.pe-dark-theme', m.component(headerPanel, {
+        header: {
+            toolbar: {
+                topBar: m('.title', 'Polythene')
+            }
+        },
+        mode: 'waterfall',
+        fixed: true,
+        content: [
+            links.map((linkGroup) => {
+                return m.component(list, {
+                    header: linkGroup.label ? {
+                        title: linkGroup.label
+                    } : null,
+                    tiles: linkGroup.links.sort(sortLinkData).map((link) => {
+                        selected = (m.route() === link.url);
+                        return navItem(link.name, link.url, selected);
+                    })
+                });
+            }),
+            m('.footer', m.trust('Polythene by Arthur Clemens 2015. Project page on <a href="https://github.com/ArthurClemens/Polythene">Github</a>.')) // Logo icon design by <a href="https://thenounproject.com/acider/">Miguel C Balandrano</a>
+        ],
+        restoreScrollPositionId: 'drawer'
+    }));
 };
 
-main = function(currentLinkData, content) {
-    var title, id, parsed, url, demoCard, demoCardTitle = null;
-    title = currentLinkData.name;
-    id = currentLinkData.url;
-    parsed = content ? marked(content) : '';
+const main = {};
+main.view = (ctrl, opts) => {
+    const currentLink = opts.currentLink;
+    const content = opts.content;
+    const title = currentLink.name;
+    const parsed = content ? marked(content) : '';
 
-    if (currentLinkData.demo !== null) {
-        url = {
-            href: currentLinkData.demo,
-            target: '_blank'
-        };
-        demoCardTitle = (id === 'polythene') ? 'Introducing Polythene' : title;
-        demoCard = m.component(card, {
-            url: url,
-            content: [{
-                primary: {
-                    title: demoCardTitle
-                }
-            }, {
-                actions: {
-                    class: 'bordered',
-                    content: [
-                        m('.flex'),
-                        m.component(button, {
-                            label: currentLinkData.label || 'View demo',
-                            url: url
-                        })
-                    ]
-                }
-            }]
-        });
-    }
+    const url = {
+        href: currentLink.demo,
+        target: '_blank'
+    };
+
+    const demoLink = currentLink.demo ? m.component(button, {
+        label: currentLink.label || 'View demo',
+        url
+    }) : null;
+
+    const mainContent = parsed ? m.trust(parsed) : m('div', 'Nothing here');
 
     return m('.main.flex',
         m.component(headerPanel, {
             header: {
                 toolbar: {
-                    topBar: m('.title', title)
+                    topBar: [
+                        m('.title', [title, demoLink])
+                    ]
                 }
             },
             mode: 'waterfall',
-            fixed: true,
+            // fixed: true,
             content: m('.doc-content', {
-                config: (el, inited) => {
-                    const codeBlocks = [].slice.call(el.querySelectorAll('pre code'));
-                    codeBlocks.forEach((b) => {
-                        highlight.highlightBlock(b);
+                config: (el) => {
+                    // Syntax coloring
+                    Array.from(document.querySelectorAll('pre code')).forEach((code) => {
+                        code.innerHTML = h(code.textContent);
                     });
+
                     const links = [].slice.call(el.querySelectorAll('a'));
                     links.forEach((ln) => {
                         const lnHref = ln.getAttribute('href');
                         if (!lnHref.match(/^http/)) {
                             ln.onclick = (e) => {
                                 e.preventDefault();
-                                const newRoute = lnHref.replace('#', '');
-                                m.route(newRoute);
+                                m.route(lnHref.replace('#', ''));
                             };
                         }
                     });
                 }
-            }, [
-                demoCard,
-                m.trust(parsed)
-            ])
+            }, mainContent),
+            updateContentOnScroll: false
         })
     );
 };
 
-app = {};
-
-app.vm = function() {
-    return {
-        init: function() {
-            app.vm.currentLink = function() {
-                return linkMap[m.route.param('module')];
-            };
-
-            app.vm.updateHead = function() {
-                var currentLink, title;
-                currentLink = app.vm.currentLink() || {};
-                title = currentLink.title || (currentLink.name + ' - ' + defaultTitle);
-                document.title = title;
-            };
-        }
-    };
-}.call();
-
-app.controller = function() {
-    var docs;
-    app.vm.init();
-    docs = m.request({
+const app = {};
+app.controller = () => {
+    const docs = m.request({
         method: 'GET',
         url: 'app/docs/' + m.route.param('module') + '.md',
         background: false,
-        deserialize: function(value) {
+        deserialize: (value) => {
+            const main = document.querySelector('.pe-header-panel__main-container');
+            if (main) {
+                main.scrollTop = 0;
+            }
             return value;
         }
     });
 
+    const currentLink = () => {
+        return linkMap[m.route.param('module')];
+    };
+
     return {
-        docs: docs
+        docs,
+        currentLink
     };
 };
 
-app.view = function(ctrl) {
-    var docData, currentLink;
-    docData = ctrl.docs();
-    currentLink = app.vm.currentLink();
+app.view = (ctrl) => {
+    const content = ctrl.docs();
+    const currentLink = ctrl.currentLink() || {
+        title: '',
+        url: ''
+    };
     return [
-        m('.scaffold.layout.horizontal.reverse', {
-            config: app.vm.updateHead
-        }, [
-            main(currentLink, docData),
-            createDrawer()
+        m('.scaffold.layout.horizontal.reverse', [
+            m.component(main, {currentLink, content}),
+            m.component(navigation, {currentLink})
         ])
     ];
 };
@@ -317,3 +296,14 @@ m.route.mode = 'hash';
 m.route(document.body, baseUrl, {
     ':module': app
 });
+
+// When going to another page and then hitting the back button
+// on Safari 9.0.x, the scrollable panes are frozen.
+// This script reloads the view.
+window.addEventListener('pageshow', (e) => {
+    if (e.persisted) {
+        setTimeout(() => {
+            window.location.reload();
+        }, 0);
+    }
+}, false);

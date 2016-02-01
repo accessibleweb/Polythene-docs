@@ -2,8 +2,8 @@
 var sh = require('shelljs');
 
 var fileRe = /\.md$/;
-var origin = '../../polythene/master/';
-var destinations = ['src/app/docs/', 'build/app/docs/'];
+var origin = '../../../polythene/master/';
+var destinations = ['app/docs/', '../build/app/docs/'];
 
 destinations.forEach(function(dest) {
     sh.rm('-rf', dest);
