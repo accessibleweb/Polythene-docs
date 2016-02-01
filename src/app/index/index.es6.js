@@ -212,7 +212,7 @@ main.view = (ctrl, opts) => {
     };
 
     const demoLink = currentLink.demo ? m.component(button, {
-        label: currentLink.label || 'View demo',
+        label: currentLink.label || 'Demo',
         url
     }) : null;
 
@@ -223,7 +223,7 @@ main.view = (ctrl, opts) => {
             header: {
                 toolbar: {
                     topBar: [
-                        m('.title', [title, demoLink])
+                        m('.title', [m('span', title), demoLink])
                     ]
                 }
             },
@@ -278,7 +278,6 @@ app.view = (ctrl) => {
         title: '',
         url: '/'
     };
-    console.log("currentLink", currentLink, "content", content);
     return [
         m('.scaffold.layout.horizontal.reverse', [
             m.component(main, {currentLink, content}),
