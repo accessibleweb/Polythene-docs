@@ -1,3 +1,5 @@
+import 'polythene/common/no-tap-delay';
+
 import m from 'mithril';
 import marked from 'marked';
 import list from 'polythene/list/list';
