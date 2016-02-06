@@ -229,12 +229,15 @@ main.view = (ctrl, opts) => {
             },
             mode: 'waterfall',
             content: m('.doc-content', {
-                config: (el) => {
+                config: (el, inited) => {
+                    if (inited) return;
+                    
                     // Syntax coloring
                     Array.from(el.querySelectorAll('pre code')).forEach((code) => {
                         code.innerHTML = h(code.textContent);
                     });
 
+                    // Handle links
                     const links = [].slice.call(el.querySelectorAll('a'));
                     links.forEach((ln) => {
                         const lnHref = ln.getAttribute('href');
@@ -244,6 +247,13 @@ main.view = (ctrl, opts) => {
                                 m.route(lnHref.replace('#', '/'));
                             };
                         }
+                    });
+
+                    // Handle javascript
+                    Array.from(el.querySelectorAll('script')).forEach((script) => {
+                        const js = document.createElement('script');
+                        js.src = script.src;
+                        script.parentNode.insertBefore(js, script);
                     });
                 }
             }, mainContent)
