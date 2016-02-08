@@ -231,7 +231,7 @@ main.view = (ctrl, opts) => {
             content: m('.doc-content', {
                 config: (el, inited) => {
                     if (inited) return;
-                    
+
                     // Syntax coloring
                     Array.from(el.querySelectorAll('pre code')).forEach((code) => {
                         code.innerHTML = h(code.textContent);
@@ -253,7 +253,10 @@ main.view = (ctrl, opts) => {
                     Array.from(el.querySelectorAll('script')).forEach((script) => {
                         const js = document.createElement('script');
                         js.src = script.src;
-                        script.parentNode.insertBefore(js, script);
+                        const scriptNode = script.parentNode.insertBefore(js, script);
+                        const content = document.createElement('div');
+                        content.innerHTML = script.innerHTML;
+                        scriptNode.parentNode.insertBefore(content, scriptNode);
                     });
                 }
             }, mainContent)
