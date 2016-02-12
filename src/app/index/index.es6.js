@@ -12,6 +12,8 @@ import webfontLoader from 'polythene/common/webfontloader';
 webfontLoader.add('google', 'Inconsolata:400,700:latin');
 
 import 'polythene/theme/theme';
+import 'polythene/layout/theme/theme';
+
 import styler from 'polythene/common/styler';
 import appStyle from 'app/app/app-style';
 import syntaxStyle from 'app/app/syntax';
