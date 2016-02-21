@@ -31,7 +31,7 @@
     "transpile": "node scripts/transpile.js once app/ node_modules",
     "build": "npm run copy-docs && npm run transpile && node scripts/build.js",
     "copy-docs": "node scripts/copy-docs.js",
-    "dev-build": "npm run copy-docs && node scripts/build-preflight.js && npm install && npm run build && node scripts/build-postflight.js"
+    "dev-build": "npm run copy-docs && node scripts/dev-build-prepare.js preflight && npm install && npm run build && node scripts/dev-build-prepare.js postflight"
   },
   "repository": {
     "type": "git",
